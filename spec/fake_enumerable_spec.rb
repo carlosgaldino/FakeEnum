@@ -22,6 +22,13 @@ describe "FakeEnumerable" do
     [nil, false].any?.must_equal false
   end
 
+  it "supports count" do
+    @list.count.must_equal 5
+    @list.count { |x| x.odd? }.must_equal 3
+    @list << 13
+    @list.count(13).must_equal 2
+  end
+
   it "supports drop" do
     @list.drop(2).must_equal([7, 13, 42])
     @list.drop(10).must_equal([])

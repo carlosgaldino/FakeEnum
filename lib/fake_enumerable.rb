@@ -17,6 +17,18 @@ module FakeEnumerable
     false
   end
 
+  def count(obj = nil)
+    count = 0
+    if obj
+      each { |e| count += 1 if obj == e }
+    elsif block_given?
+      each { |e| count += 1 if yield(e) }
+    else
+      each { |e| count += 1 }
+    end
+    count
+  end
+
   def drop(n)
     array = to_a
     return [] if n > array.size
