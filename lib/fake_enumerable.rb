@@ -29,6 +29,13 @@ module FakeEnumerable
     count
   end
 
+  def detect(ifnone = nil)
+    return FakeEnumerator.new(self, :detect) unless block_given?
+
+    each { |e| return e if yield(e) }
+    ifnone.call if ifnone
+  end
+
   def drop(n)
     array = to_a
     return [] if n > array.size

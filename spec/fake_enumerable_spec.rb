@@ -29,6 +29,18 @@ describe "FakeEnumerable" do
     @list.count(13).must_equal 2
   end
 
+  it "supports detect" do
+    @list.detect { |x| x.even? }.must_equal 4
+    @list.detect { |x| x > 42 }.must_be_nil
+
+    mock = MiniTest::Mock.new
+    mock.expect(:call, nil)
+    @list.detect(mock) { |x| x > 42 }
+    assert mock.verify
+
+    @list.detect.must_be_instance_of FakeEnumerator
+  end
+
   it "supports drop" do
     @list.drop(2).must_equal([7, 13, 42])
     @list.drop(10).must_equal([])
