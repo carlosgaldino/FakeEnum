@@ -8,6 +8,13 @@ describe "FakeEnumerable" do
     @list << 3 << 13 << 42 << 4 << 7
   end
 
+  it "supports all?" do
+    @list.all? { |x| x.even? }.must_equal false
+    @list.all? { |x| x > 2 }.must_equal true
+    @list.all?.must_equal true
+    [nil, false, true].all?.must_equal false
+  end
+
   it "supports drop" do
     @list.drop(2).must_equal([7, 13, 42])
     @list.drop(10).must_equal([])
