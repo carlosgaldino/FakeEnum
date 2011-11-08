@@ -8,6 +8,15 @@ module FakeEnumerable
     true
   end
 
+  def any?
+    if block_given?
+      each { |e| return true if yield(e) }
+    else
+      each { |e| return true if e }
+    end
+    false
+  end
+
   def drop(n)
     array = to_a
     return [] if n > array.size

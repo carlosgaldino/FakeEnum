@@ -15,6 +15,13 @@ describe "FakeEnumerable" do
     [nil, false, true].all?.must_equal false
   end
 
+  it "supports any?" do
+    @list.any? { |x| x.even? }.must_equal true
+    @list.any? { |x| x > 52 }.must_equal false
+    @list.any?.must_equal true
+    [nil, false].any?.must_equal false
+  end
+
   it "supports drop" do
     @list.drop(2).must_equal([7, 13, 42])
     @list.drop(10).must_equal([])
