@@ -35,4 +35,13 @@ describe "FakeEnumerator" do
 
     enum.with_index { |e, i| "#{i}. #{e}" }.must_equal(expected)
   end
+
+  it "calls methods with arguments" do
+    enum = @list.each_cons(2)
+    expected = [[3, 4], [4, 7], [7, 13], [13, 42]]
+
+    out = []
+    enum.each { |a| out << a }
+    out.must_equal(expected)
+  end
 end

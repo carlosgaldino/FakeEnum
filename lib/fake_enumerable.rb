@@ -51,7 +51,7 @@ module FakeEnumerable
   end
 
   def each_cons(size)
-    return FakeEnumerator.new(self, :each_cons) unless block_given?
+    return FakeEnumerator.new(self, :each_cons, size) unless block_given?
 
     out = []
     each do |e|

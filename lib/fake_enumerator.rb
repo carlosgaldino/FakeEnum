@@ -3,13 +3,18 @@ require "fiber"
 class FakeEnumerator
   include FakeEnumerable
 
-  def initialize(target, method)
+  def initialize(target, method, arg = nil)
     @target = target
     @method = method
+    @arg = arg
   end
 
   def each(&block)
-    @target.send(@method, &block)
+    if @arg
+      @target.send(@method, @arg, &block)
+    else
+      @target.send(@method, &block)
+    end
   end
 
   def next
