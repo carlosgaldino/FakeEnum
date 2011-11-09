@@ -55,6 +55,8 @@ describe "FakeEnumerable" do
     array = []
     @list.each_cons(2) { |a| array << a }
     array.must_equal(expected)
+
+    @list.each_cons(3).must_be_instance_of FakeEnumerator
   end
 
   it "supports flat_map" do
