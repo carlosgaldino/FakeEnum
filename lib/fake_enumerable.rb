@@ -50,6 +50,17 @@ module FakeEnumerable
     out
   end
 
+  def each_cons(size)
+    out = []
+    each do |e|
+      out << e
+      if out.size == size
+        yield(out)
+        out = [e]
+      end
+    end
+  end
+
   def flat_map(&block)
     map(&block).flatten!
   end

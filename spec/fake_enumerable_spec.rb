@@ -50,6 +50,13 @@ describe "FakeEnumerable" do
     @list.drop_while { |item| item < 10 }.must_equal([13, 42])
   end
 
+  it "supports each_cons" do
+    expected = [[3, 4], [4, 7], [7, 13], [13, 42]]
+    array = []
+    @list.each_cons(2) { |a| array << a }
+    array.must_equal(expected)
+  end
+
   it "supports flat_map" do
     expected = [3, 97, 4, 96, 7, 93, 13, 87, 42, 58]
     @list.flat_map { |x| [x, 100 - x] }.must_equal(expected)
