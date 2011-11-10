@@ -71,6 +71,20 @@ module FakeEnumerable
     end
   end
 
+  def each_slice(length)
+    return FakeEnumerator.new(self, :each_slice, length) unless block_given?
+
+    out = []
+    each do |e|
+      out << e
+      if out.length == length
+        yield out
+        out = []
+      end
+    end
+    yield out unless out.empty?
+  end
+
   def flat_map(&block)
     map(&block).flatten!
   end

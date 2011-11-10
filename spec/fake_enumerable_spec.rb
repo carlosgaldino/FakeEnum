@@ -71,6 +71,22 @@ describe "FakeEnumerable" do
     list.each_entry.must_be_instance_of FakeEnumerator
   end
 
+  it "supports each_slice" do
+    expected = [[3, 4], [7, 13], [42]]
+
+    out = []
+    @list.each_slice(2) { |a| out << a }
+    out.must_equal(expected)
+
+    @list << 33
+    out = []
+    @list.each_slice(2) { |a| out << a }
+    expected = [[3, 4], [7, 13], [33, 42]]
+    out.must_equal(expected)
+
+    @list.each_slice(2).must_be_instance_of FakeEnumerator
+  end
+
   it "supports flat_map" do
     expected = [3, 97, 4, 96, 7, 93, 13, 87, 42, 58]
     @list.flat_map { |x| [x, 100 - x] }.must_equal(expected)
