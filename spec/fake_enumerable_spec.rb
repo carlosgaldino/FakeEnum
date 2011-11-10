@@ -59,6 +59,18 @@ describe "FakeEnumerable" do
     @list.each_cons(3).must_be_instance_of FakeEnumerator
   end
 
+  it "supports each_entry" do
+    expected = [1, [2, 3], 4]
+
+    list = MultipleYieldList.new
+
+    out = []
+    list.each_entry { |a| out << a }
+    out.must_equal(expected)
+
+    list.each_entry.must_be_instance_of FakeEnumerator
+  end
+
   it "supports flat_map" do
     expected = [3, 97, 4, 96, 7, 93, 13, 87, 42, 58]
     @list.flat_map { |x| [x, 100 - x] }.must_equal(expected)
@@ -88,4 +100,14 @@ describe "FakeEnumerable" do
     @list.sort_by { |x| x.to_s }.must_equal([13, 3, 4, 42, 7])
   end
 
+end
+
+class MultipleYieldList
+  include FakeEnumerable
+
+  def each
+    yield 1
+    yield 2, 3
+    yield 4
+  end
 end

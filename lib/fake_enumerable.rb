@@ -63,6 +63,14 @@ module FakeEnumerable
     end
   end
 
+  def each_entry
+    return FakeEnumerator.new(self, :each_entry) unless block_given?
+
+    each do |*args|
+      yield args.size == 1 ? args[0] : args
+    end
+  end
+
   def flat_map(&block)
     map(&block).flatten!
   end
