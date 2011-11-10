@@ -99,6 +99,16 @@ module FakeEnumerable
     memo
   end
 
+  def find_all
+    return FakeEnumerator.new(self, :find_all) unless block_given?
+
+    out = []
+    each do |e|
+      out << e if yield(e)
+    end
+    out
+  end
+
   def flat_map(&block)
     map(&block).flatten!
   end

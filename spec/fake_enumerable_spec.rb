@@ -106,6 +106,12 @@ describe "FakeEnumerable" do
     @list.each_with_object({}).must_be_instance_of FakeEnumerator
   end
 
+  it "supports find_all" do
+    @list.find_all { |x| x.odd? }.must_equal([3, 7, 13])
+
+    @list.find_all.must_be_instance_of FakeEnumerator
+  end
+
   it "supports flat_map" do
     expected = [3, 97, 4, 96, 7, 93, 13, 87, 42, 58]
     @list.flat_map { |x| [x, 100 - x] }.must_equal(expected)
