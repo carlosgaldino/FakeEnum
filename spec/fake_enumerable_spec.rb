@@ -135,6 +135,11 @@ describe "FakeEnumerable" do
     @list.sort_by { |x| x.to_s }.must_equal([13, 3, 4, 42, 7])
   end
 
+  it "supports to_a" do
+    expected = [3, 4, 7, 13, 42]
+    @list.entries.must_equal(expected)
+  end
+
 end
 
 class MultipleYieldList

@@ -156,4 +156,11 @@ module FakeEnumerable
     map { |a| [yield(a), a] }.sort.map { |a| a[1] }
   end
 
+  def to_a
+    out = []
+    each { |e| out << e }
+  end
+
+  alias_method :entries, :to_a
+
 end

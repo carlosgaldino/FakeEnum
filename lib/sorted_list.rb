@@ -21,8 +21,4 @@ class SortedList
       FakeEnumerator.new(self, :each)
     end
   end
-
-  def to_a
-    @data
-  end
 end
