@@ -92,6 +92,13 @@ module FakeEnumerable
     each { |e| yield i, e; i += 1 }
   end
 
+  def each_with_object(memo)
+    return FakeEnumerator.new(self, :each_with_object, memo) unless block_given?
+
+    each { |e| yield e, memo }
+    memo
+  end
+
   def flat_map(&block)
     map(&block).flatten!
   end

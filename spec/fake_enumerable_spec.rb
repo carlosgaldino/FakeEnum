@@ -97,6 +97,15 @@ describe "FakeEnumerable" do
     @list.each_with_index.must_be_instance_of FakeEnumerator
   end
 
+  it "supports each_with_object" do
+    expected = { "3" => 4, "4" => 5, "7" => 8, "13" => 14, "42" => 43 }
+
+    out = @list.each_with_object({}) { |item, memo| memo[item.to_s] = item.succ }
+    out.must_equal(expected)
+
+    @list.each_with_object({}).must_be_instance_of FakeEnumerator
+  end
+
   it "supports flat_map" do
     expected = [3, 97, 4, 96, 7, 93, 13, 87, 42, 58]
     @list.flat_map { |x| [x, 100 - x] }.must_equal(expected)
