@@ -85,6 +85,13 @@ module FakeEnumerable
     yield out unless out.empty?
   end
 
+  def each_with_index
+    return FakeEnumerator.new(self, :each_with_index) unless block_given?
+
+    i = 0
+    each { |e| yield i, e; i += 1 }
+  end
+
   def flat_map(&block)
     map(&block).flatten!
   end
